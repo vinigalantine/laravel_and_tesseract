@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::prefix('ocr')->group(function(){
+	Route::get('/read', 'HomeController@readImage');
 });
