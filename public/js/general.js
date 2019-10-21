@@ -4,9 +4,9 @@ $(function(){
 });
 
 // Ajax Request - if (success) { return true } else { return false }
-function requestAjax(method_request,uri,data_request = []){
+function requestAjax(http_type,uri,data_request = []){
   var result =  $.ajax({
-    method: method_request,
+    type: http_type,
     url: uri,
     dataType: 'json',
     data: data_request,
@@ -16,24 +16,26 @@ function requestAjax(method_request,uri,data_request = []){
   if(result.status == 200 || result.status == 201)
     return { code:result.status, data:result.responseJSON, status:true }
   else
-    return { code:result.status, data:result.responseText, status:false }
+    return { code:result.status, data:result.responseJSON, status:false }
 }
 
-function requestAjaxImage(method_request,uri,id_form){
+function requestAjaxImage(http_type,uri,form_id){
+  var formData = new FormData($('#'+form_id)[0]); 
   var result =  $.ajax({
-    method: method_request,
+    type: http_type,
     url: uri,
-    cache:false,
-    processData: false,
     dataType: 'json',
-    data:  new FormData($('#'+id_form)[0]),
+    data:formData,
+    cache:false,
+    contentType: false,
+    processData: false,
     async: false
   });
 
   if(result.status == 200 || result.status == 201)
     return { code:result.status, data:result.responseJSON, status:true }
   else
-    return { code:result.status, data:result.responseText, status:false }
+    return { code:result.status, data:result.responseJSON, status:false }
 }
 
 // Add loading
@@ -57,13 +59,9 @@ function previewImage(input) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
     reader.onload = function (e) {
-      $('#'+input.id'-img').attr('src', e.target.result);
+      $('#'+input.id+'-prev').attr('src', e.target.result);
     }
-             
+
     reader.readAsDataURL(input.files[0]);
   }
 }
-  
-        $(".img-prev").change(function(){
-            readURL(this);
-        });

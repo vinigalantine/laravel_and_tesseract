@@ -2,7 +2,8 @@
 <html lang="{{ app()->getLocale() }}" style="width: 100%; height: 100%; line-height: 100%;">
 <head>
     <title>{{ config('app.name', 'Laravel & Tesseract OCR') }}</title>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
     @yield('css_before')
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">    
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />

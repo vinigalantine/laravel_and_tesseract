@@ -14,5 +14,5 @@
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::prefix('ocr')->group(function(){
-	Route::get('/read', 'HomeController@readImage');
+	Route::post('/read', 'HomeController@readImage');
 });
