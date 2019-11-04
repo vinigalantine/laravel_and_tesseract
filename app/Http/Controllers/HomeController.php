@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ImageValidator;
 use Illuminate\Support\Facades\Storage;
 
 use thiagoalessio\TesseractOCR\TesseractOCR;
@@ -13,7 +14,7 @@ class HomeController extends Controller
     	return view('home');
     }
 
-    public function readImage(Request $request){
+    public function readImage(ImageValidator $request){
     	if ($request->file('image_to_read')){
     		$file = $request->file('image_to_read')->store('ocr_images', 'public');
     		if($file){
